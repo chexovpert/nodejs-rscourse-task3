@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
-var User = require('sequelize').import('../models/user');
+const Sequelize = require('sequelize') //3rd bug
+const sequelize= new Sequelize("sqlite::memory:");
+const UserModel = require('../models/user')
+//const User = require('sequelize').import('../models/user'); //refactor
+//const User = UserModel()
 
 module.exports = function (req, res, next) {
     if (req.method == 'OPTIONS') {
