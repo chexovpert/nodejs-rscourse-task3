@@ -5,9 +5,8 @@ const jwt = require('jsonwebtoken');
 const db = require('../db');
 const User = db.User; //fix
 
-router.post('/signup', async(req, res) => {
-    const { full_name, username, password, email } = req.body.user;
-    await User.sync({ force: true });//fix
+router.post('/signup', (req, res) => {
+    const { full_name, username, password, email } = req.body.user; //refactor
     User.create({
         full_name: full_name,
         username: username,
@@ -24,7 +23,7 @@ router.post('/signup', async(req, res) => {
             },
 
             function signupFail(err) {
-                res.status(500).send({error: err.message, error1: err})
+                res.status(500).send({error: err.message})
             }
         )
 })

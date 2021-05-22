@@ -16,7 +16,7 @@ module.exports=function(sequelize, DataTypes) { //module exports fix
         },
 
         esrb_rating: {
-            type: DataTypes.CHAR(5),
+            type: DataTypes.CHAR(5), //?
             allowNull: false,
         },
 
