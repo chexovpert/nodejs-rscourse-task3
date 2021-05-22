@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize, DataTypes} = require('sequelize');
 require('dotenv').config()
                                 //database username   password
 const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env.DB_PASSWORD, {
@@ -6,8 +6,8 @@ const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env
     dialect: 'postgres',
     port: '5433'
 })
-const Game = require('./models/game')(sequelize, Sequelize)
-const User = require('./models/user')(sequelize, Sequelize)
+const Game = require('./models/game')(sequelize, DataTypes)
+const User = require('./models/user')(sequelize, DataTypes)
 
 sequelize.authenticate().then(
     function success() {
