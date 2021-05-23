@@ -1,9 +1,14 @@
-const Sequelize = require('sequelize');
+const {Sequelize, DataTypes} = require('sequelize');
+require('dotenv').config()
                                 //database username   password
-const sequelize = new Sequelize('gamedb', 'postgres', 'ghastb0i', {
-    host: 'localhost',
-    dialect: 'postgres'
+const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
+    dialect: 'postgres',
+    port: '5433', //fix,
+    operatorsAliases: false, 
 })
+const Game = require('./models/game')(sequelize, DataTypes)
+const User = require('./models/user')(sequelize, DataTypes)
 
 sequelize.authenticate().then(
     function success() {
@@ -14,3 +19,9 @@ sequelize.authenticate().then(
         console.log(`Error: ${err}`);
     }
 )
+async function sync () {
+    await sequelize.sync({ force: false });
+    console.log("All models were synchronized successfully.");
+}
+
+module.exports= {Game, User, sync}
